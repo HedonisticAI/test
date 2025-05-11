@@ -1,0 +1,206 @@
+openapi: '3.0.3'
+info:
+  title: PersonalInfoApi
+  version: '1.0'
+components:
+  schemas:
+    ResponseMessage:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: The status code of the response
+        message:
+          type: string
+          description: Descriptive message associated with the response
+      required:
+        - code
+        - message
+    AddUser:
+      type: object
+      properties:
+        name:
+          type: string
+          description: users name
+        surname:
+          type: string
+          description: users surname
+        patronymic:
+          type: string
+          description: users patronymic
+      required:
+        - name
+        - surname
+    UserInfo:
+      type: object
+      properties:
+        ID:
+          type: integer
+          description: Unique identifier for the user
+        name:
+          type: string
+          description: The user's first name
+        surname:
+          type: string
+          description: The user's last name
+        patronymic:
+          type: string
+          description: The user's  patronymic
+        gender:
+          type: string
+          description: The user's gender
+        age:
+          type: integer
+          description: The user's age
+        nation:
+          type: string
+          description: The user's nation
+      required:
+        - ID
+        - name
+        - surname
+    UserInfoArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/UserInfo'
+paths:
+  /Create:
+    post:
+      description: "Add User"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/AddUser'
+      responses: 
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+  /Delete:
+    delete:
+      description: 'Delete by ID'
+      parameters:
+          - name: ID
+            in: query
+            required: true
+            description: ID of a User to delete
+            schema:
+              type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '204':
+          description: No content
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+  /GetUser:
+    get:
+      description: ''
+      parameters: 
+            - name: page_num
+              in: query
+              required: true
+              description: number of a page
+              schema:
+                type: integer
+            - name: page_size
+              in: query
+              required: true
+              description: size of a page
+              schema:
+                type: integer
+            - name: age
+              in: query
+              required: false
+              description: age of a person
+              schema:
+                type: integer
+            - name: name
+              in: query
+              required: false
+              description: name of a person
+              schema:
+                type: string
+            - name: surname
+              in: query
+              required: false
+              description: surname of a person
+              schema:
+                type: string
+            - name: nation
+              in: query
+              required: false
+              description: nation of a person
+              schema:
+                type: string
+            - name: gender
+              in: query
+              required: false
+              description: gender of a person
+              schema:
+                type: string
+            - name: patronymic
+              in: query
+              required: false
+              description: patronymic of a person
+              schema:
+                type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserInfoArray'
+        '204':
+          description: No content 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: No content 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+  /Change:
+    put:
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResponseMessage'
+  
