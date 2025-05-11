@@ -1,11 +1,11 @@
-#Test
+# Test
 Test for effective mobile
-#Requered
+## Requered
 1) Goose for migrations
 2) Docker compose
 3) Golang (my ver 1.24.2)
 4) Insomnia (optional)
-#How to start
+## How to start
 1) Run DB 
 ```bash
 docker compose up
